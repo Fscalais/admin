@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  mailserver:
+    image: tvial/docker-mailserver
+    hostname: mail.l1-6.ephec-ti.be    # Modifiez ceci avec votre FQDN correspondant à votre MX
+    environment:
+      - MAIL_USER=he202124@l1-6.ephec-ti.be
+      - MAIL_PASS=Voi9ture*
+      - DMS_DEBUG=on
+      - SSL_TYPE=letsencrypt
+      - DMS_VMAIL_USER=vmail
+      - DMS_VMAIL_GROUP=vmail
+    ports:
+      - "25:25"
+      - "143:143"
+      - "465:465"
+      - "587:587"
+      - "993:993"
+      - "9995:995"
+    volumes:
+      - /path/to/config:/tmp/docker-mailserver
+      - /path/to/data:/var/mail
+      - /path/to/ssl:/tmp/ssl
+      - /path/to/opendkim/keys:/etc/opendkim/keys
+    restart: always
+
